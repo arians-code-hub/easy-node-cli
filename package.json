@@ -1,5 +1,5 @@
 {
-  "name": "simple-node-cli",
+  "name": "easy-node-cli",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arians-code-hub/simple-node-cli.git"
+    "url": "git+https://github.com/arians-code-hub/easy-node-cli.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/arians-code-hub/node-cli/issues"
+    "url": "https://github.com/arians-code-hub/easy-node-cli/issues"
   },
-  "homepage": "https://github.com/arians-code-hub/node-cli#readme",
+  "homepage": "https://github.com/arians-code-hub/easy-node-cli#readme",
   "devDependencies": {
     "@types/node": "^20.12.10",
     "typescript": "^5.4.5"

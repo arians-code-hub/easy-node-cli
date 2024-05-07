@@ -1,5 +1,6 @@
 // npx tsx cli
 import * as process from "process";
+import {basePath} from "./src/helper/path";
 const isNumeric = (str: any) => typeof str !== "string" ? false : !isNaN(Number(str));
 function convertArgs(args: string[]) {
     const data: { [key: string]: string | boolean | number } = {};
@@ -26,6 +27,7 @@ if (!allArgs.length)
 
 const command = allArgs[0];
 const args = allArgs.length ? convertArgs(allArgs.slice(1)) : {};
+console.log('path',basePath());
 console.log('command',command);
 console.log('args',args);
 // runCommand(command,args);
