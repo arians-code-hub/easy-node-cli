@@ -1,4 +1,6 @@
-export function basePath() : any{
-    const base = require.main;
-    return base;
+export function moduleBasePath() : string|undefined{
+    return require.main?.path;
+}
+export function basePath() : string{
+    return moduleBasePath() ?? './';
 }
