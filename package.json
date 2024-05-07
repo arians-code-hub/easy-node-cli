@@ -1,5 +1,5 @@
 {
-  "name": "node-cli",
+  "name": "simple-node-cli",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arians-code-hub/node-cli.git"
+    "url": "git+https://github.com/arians-code-hub/simple-node-cli.git"
   },
   "author": "",
   "license": "ISC",
