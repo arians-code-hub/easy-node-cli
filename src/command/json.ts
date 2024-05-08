@@ -19,6 +19,8 @@ export default class json extends Command {
         dst: string,
         key?: string | string[]
     }) {
+        console.log('props',props);
+
         let obj: any = File.readJson(props.src);
         if (props.key) {
             if (typeof props.key === 'string' && !!props.key)
