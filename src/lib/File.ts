@@ -42,6 +42,7 @@ export class File {
         return JSON.parse(fs.readFileSync(path).toString());
     }
     static writeJson(path : string,data : any) : any{
+        console.log(path,data);
         return File.writeJson(path,JSON.stringify(data));
     }
 
