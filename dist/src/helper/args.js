@@ -27,6 +27,7 @@ function convertArgs(args) {
         }
         console.log('key', _key);
         console.log('val', _val);
+        console.log('-----------');
         if (_key in data) {
             if (Array.isArray(data[_key])) { // @ts-ignore
                 data[_key].push(_val);
