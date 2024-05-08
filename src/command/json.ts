@@ -6,12 +6,11 @@ export default class json extends Command {
         console.log('Json index command.');
     }
 
-    toJs(props : {
+    read(props: {
         src: string,
-        dst: string,
         key?: string | string[]
-    }) {
-        let obj: any = File.readJson({path:props.src});
+    }): any {
+        let obj: any = File.readJson({path: props.src});
         if (props.key) {
             if (typeof props.key === 'string' && !!props.key)
                 obj = obj[props.key];
@@ -19,27 +18,39 @@ export default class json extends Command {
                 for (let k of props.key)
                     obj = obj[k];
         }
+        return obj;
+    }
+
+    copy(props: {
+        src: string,
+        dst: string,
+        key?: string | string[]
+    }) {
         File.create({
-            path:props.dst,
-            data : `exports.default = ${JSON.stringify(obj)}`
+            path: props.dst,
+            data: JSON.stringify(this.read(props)),
         })
     }
-    toTs(props : {
+
+    toJs(props: {
         src: string,
         dst: string,
         key?: string | string[]
     }) {
-        let obj: any = File.readJson({path:props.src});
-        if (props.key) {
-            if (typeof props.key === 'string' && !!props.key)
-                obj = obj[props.key];
-            else if (Array.isArray(props.key) && props.key.length)
-                for (let k of props.key)
-                    obj = obj[k];
-        }
         File.create({
-            path:props.dst,
-            data : `export default ${JSON.stringify(obj)}`
+            path: props.dst,
+            data: `exports.default = ${JSON.stringify(this.read(props))}`,
+        })
+    }
+
+    toTs(props: {
+        src: string,
+        dst: string,
+        key?: string | string[]
+    }) {
+        File.create({
+            path: props.dst,
+            data: `export default ${JSON.stringify(this.read(props))}`,
         })
     }
 }
