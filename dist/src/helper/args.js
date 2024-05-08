@@ -25,6 +25,8 @@ function convertArgs(args) {
             const tmp = arg.substring(index + 1);
             _val = isNumeric(tmp) ? Number(tmp) : tmp;
         }
+        console.log('key', _key);
+        console.log('val', _val);
         if (_key in data) {
             if (Array.isArray(data[_key])) { // @ts-ignore
                 data[_key].push(_val);

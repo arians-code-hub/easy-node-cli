@@ -8,8 +8,10 @@ function convertArgs(args: string[]) {
         if (!(!!arg))
             continue;
         const index = arg.indexOf(':');
+
         let _val: any;
         let _key: any = arg;
+
         if (index == -1)
             _val = true;
         else if (index === arg.length - 1) {
@@ -20,6 +22,8 @@ function convertArgs(args: string[]) {
             const tmp = arg.substring(index + 1);
             _val = isNumeric(tmp) ? Number(tmp) : tmp;
         }
+        console.log('key',_key);
+        console.log('val',_val);
         if (_key in data) {
             if (Array.isArray(data[_key])) { // @ts-ignore
                 data[_key].push(_val);
