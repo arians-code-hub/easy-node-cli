@@ -1,2 +1,3 @@
 import {runCli} from "./src/helper/runCommand";
-runCli();
+console.log('< return >');
+console.log(runCli());
