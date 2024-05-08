@@ -6,14 +6,6 @@ export default class json extends Command {
         console.log('Json index command.');
     }
 
-    toJavascript(props : {
-        src: string,
-        dst: string,
-        key?: string | string[]
-    }) {
-        return this.toJs(props);
-    }
-
     toJs(props : {
         src: string,
         dst: string,
@@ -27,6 +19,27 @@ export default class json extends Command {
                 for (let k of props.key)
                     obj = obj[k];
         }
-        File.writeJson({path:props.dst, data:obj});
+        File.create({
+            path:props.dst,
+            data : `exports.default = ${JSON.stringify(obj)}`
+        })
+    }
+    toTs(props : {
+        src: string,
+        dst: string,
+        key?: string | string[]
+    }) {
+        let obj: any = File.readJson({path:props.src});
+        if (props.key) {
+            if (typeof props.key === 'string' && !!props.key)
+                obj = obj[props.key];
+            else if (Array.isArray(props.key) && props.key.length)
+                for (let k of props.key)
+                    obj = obj[k];
+        }
+        File.create({
+            path:props.dst,
+            data : `export default ${JSON.stringify(obj)}`
+        })
     }
 }
