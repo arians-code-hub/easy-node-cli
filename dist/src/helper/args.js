@@ -8,7 +8,6 @@ const process_1 = __importDefault(require("process"));
 const isNumeric = (str) => typeof str !== "string" ? false : !isNaN(Number(str));
 function convertArgs(args) {
     const data = {};
-    console.log('args', args);
     for (let arg of args) {
         if (!(!!arg))
             continue;
@@ -19,16 +18,13 @@ function convertArgs(args) {
             _val = true;
         else if (index === arg.length - 1) {
             _val = false;
-            _key = data[arg.substring(0, index)];
+            _key = arg.substring(0, index);
         }
         else {
             _key = arg.substring(0, index);
             const tmp = arg.substring(index + 1);
             _val = isNumeric(tmp) ? Number(tmp) : tmp;
         }
-        console.log('key', _key);
-        console.log('val', _val);
-        console.log('-----------');
         if (_key in data) {
             if (Array.isArray(data[_key])) { // @ts-ignore
                 data[_key].push(_val);
