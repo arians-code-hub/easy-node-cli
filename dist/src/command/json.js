@@ -10,7 +10,7 @@ class json extends Command_1.Command {
         return this.toJs(props);
     }
     toJs(props) {
-        let obj = File_1.File.readJson(props.src);
+        let obj = File_1.File.readJson({ path: props.src });
         if (props.key) {
             if (typeof props.key === 'string' && !!props.key)
                 obj = obj[props.key];
@@ -18,7 +18,7 @@ class json extends Command_1.Command {
                 for (let k of props.key)
                     obj = obj[k];
         }
-        File_1.File.writeJson(props.dst, obj);
+        File_1.File.writeJson({ path: props.dst, data: obj });
     }
 }
 exports.default = json;

@@ -19,7 +19,7 @@ export default class json extends Command {
         dst: string,
         key?: string | string[]
     }) {
-        let obj: any = File.readJson(props.src);
+        let obj: any = File.readJson({path:props.src});
         if (props.key) {
             if (typeof props.key === 'string' && !!props.key)
                 obj = obj[props.key];
@@ -27,6 +27,6 @@ export default class json extends Command {
                 for (let k of props.key)
                     obj = obj[k];
         }
-        File.writeJson(props.dst, obj);
+        File.writeJson({path:props.dst, data:obj});
     }
 }

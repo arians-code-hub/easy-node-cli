@@ -1,72 +1,80 @@
 import * as fs from "fs";
-import * as path from "path";
+import * as _path from "path";
 
 export class Directory {
-    static exists(path: string) {
-        return fs.existsSync(path);
+    static exists(props: { path: string }) {
+        return fs.existsSync(props.path);
     }
 
 
-    static copy(from: string,to : string,force: boolean= true){
-        fs.cpSync(from, to, {recursive: true,force});
-    }
-
-    static delete(path: string){
-        if(!Directory.exists(path))
-            return;
-        fs.rmSync(path, { recursive: true, force: true });
-    }
-
-    static create(path: string, props: {
-        check?: boolean,
-        recursive?:boolean,
-    } = {
-        recursive:true,
+    static copy(props: {
+        from: string,
+        to: string,
+        force?: boolean
     }) {
-        if (props?.check && Directory.exists(path))
-            throw new Error(`Directory ${path} exists`);
-        fs.mkdirSync(path,{ recursive: props.recursive });
+        fs.cpSync(props.from, props.to, {recursive: true, force: props?.force ?? true});
     }
-    static createIfNotExists(path: string, props: {
-        recursive?:boolean,
-    } = {
-        recursive:true,
-    }){
-        if(!Directory.exists(path))
-            Directory.create(path,props);
+
+    static delete(props: { path: string }) {
+        if (!Directory.exists({path: props.path}))
+            return;
+        fs.rmSync(props.path, {recursive: true, force: true});
+    }
+
+    static create(props: {
+        path: string,
+        check?: boolean,
+        recursive?: boolean,
+    }) {
+        if (props?.check && Directory.exists({path: props.path}))
+            throw new Error(`Directory ${props.path} exists`);
+        fs.mkdirSync(props.path, {recursive: props?.recursive ?? true});
+    }
+
+    static createIfNotExists(props: {
+        path: string,
+        recursive?: boolean,
+    }) {
+        if (!Directory.exists({path: props.path}))
+            Directory.create({path: props.path, recursive: props.recursive ?? true});
     }
 }
 
 export class File {
-    static readJson(path : string) : object{
-        return JSON.parse(fs.readFileSync(path).toString());
-    }
-    static writeJson(path : string,data : any) : any{
-        return File.writeJson(path,JSON.stringify(data));
+    static readJson(props: { path: string }): object {
+        return JSON.parse(fs.readFileSync(props.path).toString());
     }
 
-    static copy(from: string,to : string){
-        fs.copyFileSync(from,to);
+    static writeJson(props: { path: string, data: any }): any {
+        return File.create({path: props.path, data: JSON.stringify(props.data)});
     }
 
-    static dirName(_path : string){
-        return path.resolve(_path, '..');
-    }
-    static exists(path: string) {
-        return fs.existsSync(path);
+    static copy(props: { from: string, to: string }) {
+        fs.copyFileSync(props.from, props.to);
     }
 
-    static create(path: string, props: {
+    static dirName(props: { path: string }) {
+        return _path.resolve(props.path, '..');
+    }
+
+    static exists(props: { path: string }) {
+        return fs.existsSync(props.path);
+    }
+
+    static create(props: {
+        path: string,
         check?: boolean,
         data?: any,
-        createDir?:boolean,
-    } = {}) {
-        if (props?.check && File.exists(path))
-            throw new Error(`File ${path} exists`);
+        createDir?: boolean,
+    }) {
+        if (props?.check && File.exists({path: props.path}))
+            throw new Error(`File ${props.path} exists`);
 
-        props?.createDir && Directory.createIfNotExists(File.dirName(path));
+        props?.createDir && Directory.createIfNotExists(
+            {path:File.dirName({path:props.path})}
+        );
 
         const text = typeof props?.data === 'object' ? JSON.stringify(props.data) : `${props?.data ?? ''}`;
-        fs.writeFileSync(path, text);
+        fs.writeFileSync(props.path, text);
     }
 }

@@ -1,7 +1,5 @@
-import {Command} from "../class/Command";
+import {Command, ofStaticClass} from "../class/Command";
+import {File} from "../lib/File";
 
-export default class file extends Command{
-   index(...args : any): any {
-       console.log('index of hello! ',args);
-   }
-}
+const file : any = ofStaticClass(File);
+export default file;
