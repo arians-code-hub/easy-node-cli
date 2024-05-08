@@ -2,7 +2,7 @@ export abstract class Command{
     public abstract index(...args:any ) : any;
 }
 
-export function ofStaticClass(cls : any,index?:undefined){
+export function ofStaticClass(cls : any,index?:(...args:any) => any){
     function obj(){
         for(let pr of Object.getOwnPropertyNames(cls)){
             if(typeof cls[pr] === "function"){
