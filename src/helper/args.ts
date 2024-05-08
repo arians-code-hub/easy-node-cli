@@ -4,6 +4,9 @@ const isNumeric = (str: any) => typeof str !== "string" ? false : !isNaN(Number(
 
 function convertArgs(args: string[]) {
     const data: { [key: string]: string | boolean | number | ((boolean | number | string)[]) } = {};
+    console.log(
+        'args',args
+    );
     for (let arg of args) {
         if (!(!!arg))
             continue;

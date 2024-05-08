@@ -8,6 +8,7 @@ const process_1 = __importDefault(require("process"));
 const isNumeric = (str) => typeof str !== "string" ? false : !isNaN(Number(str));
 function convertArgs(args) {
     const data = {};
+    console.log('args', args);
     for (let arg of args) {
         if (!(!!arg))
             continue;
