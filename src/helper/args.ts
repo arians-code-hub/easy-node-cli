@@ -3,19 +3,29 @@ import process from "process";
 const isNumeric = (str: any) => typeof str !== "string" ? false : !isNaN(Number(str));
 
 function convertArgs(args: string[]) {
-    const data: { [key: string]: string | boolean | number } = {};
+    const data: { [key: string]: string | boolean | number | ((boolean | number | string)[]) } = {};
     for (let arg of args) {
         if (!(!!arg))
             continue;
         const index = arg.indexOf(':');
+        let _val: any;
+        let _key: any = arg;
         if (index == -1)
-            data[arg] = true;
-        else if (index === arg.length - 1)
-            data[arg.substring(0, index)] = false;
-        else {
+            _val = true;
+        else if (index === arg.length - 1) {
+            _val = false;
+            _key = data[arg.substring(0, index)];
+        } else {
+            _key = arg.substring(0, index);
             const tmp = arg.substring(index + 1);
-            data[arg.substring(0, index)] = isNumeric(tmp) ? Number(tmp) : tmp;
+            _val = isNumeric(tmp) ? Number(tmp) : tmp;
         }
+        if (_key in data) {
+            if (Array.isArray(data[_key])) { // @ts-ignore
+                data[_key].push(_val);
+            } else
+                data[_key] = [data[_key], _val];
+        } else data[_key] = _val;
     }
     return data;
 }
