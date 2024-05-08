@@ -6,19 +6,27 @@ export default class json extends Command {
         console.log('Json index command.');
     }
 
-    toJavascript(src: string, dst: string, key?: string | string[]) {
-        return this.toJs(src, dst, key);
+    toJavascript(props : {
+        src: string,
+        dst: string,
+        key?: string | string[]
+    }) {
+        return this.toJs(props);
     }
 
-    toJs(src: string, dst: string, key?: string | string[]) {
-        let obj: any = File.readJson(src);
-        if (key) {
-            if (typeof key === 'string' && !!key)
-                obj = obj[key];
-            else if (Array.isArray(key) && key.length)
-                for (let k of key)
+    toJs(props : {
+        src: string,
+        dst: string,
+        key?: string | string[]
+    }) {
+        let obj: any = File.readJson(props.src);
+        if (props.key) {
+            if (typeof props.key === 'string' && !!props.key)
+                obj = obj[props.key];
+            else if (Array.isArray(props.key) && props.key.length)
+                for (let k of props.key)
                     obj = obj[k];
         }
-        File.writeJson(dst, obj);
+        File.writeJson(props.dst, obj);
     }
 }
