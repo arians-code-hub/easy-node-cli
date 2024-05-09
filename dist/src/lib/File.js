@@ -69,11 +69,11 @@ class File {
         return fs.existsSync(props.path);
     }
     static create(props) {
-        var _a;
+        var _a, _b;
         if ((props === null || props === void 0 ? void 0 : props.check) && File.exists({ path: props.path }))
             throw new Error(`File ${props.path} exists`);
-        (props === null || props === void 0 ? void 0 : props.createDir) && Directory.createIfNotExists({ path: File.dirName({ path: props.path }) });
-        const text = typeof (props === null || props === void 0 ? void 0 : props.data) === 'object' ? JSON.stringify(props.data) : `${(_a = props === null || props === void 0 ? void 0 : props.data) !== null && _a !== void 0 ? _a : ''}`;
+        ((_a = props === null || props === void 0 ? void 0 : props.createDir) !== null && _a !== void 0 ? _a : true) && Directory.createIfNotExists({ path: File.dirName({ path: props.path }) });
+        const text = typeof (props === null || props === void 0 ? void 0 : props.data) === 'object' ? JSON.stringify(props.data) : `${(_b = props === null || props === void 0 ? void 0 : props.data) !== null && _b !== void 0 ? _b : ''}`;
         fs.writeFileSync(props.path, text);
     }
 }

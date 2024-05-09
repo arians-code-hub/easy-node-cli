@@ -70,7 +70,7 @@ export class File {
         if (props?.check && File.exists({path: props.path}))
             throw new Error(`File ${props.path} exists`);
 
-        props?.createDir && Directory.createIfNotExists(
+        (props?.createDir ?? true) && Directory.createIfNotExists(
             {path:File.dirName({path:props.path})}
         );
 
