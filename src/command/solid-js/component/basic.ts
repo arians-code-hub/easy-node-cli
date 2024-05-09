@@ -8,7 +8,7 @@ export default class basic extends Command{
 
         force?: boolean
     }): any {
-        let name : string = props.name.split('/').pop() ?? '';
+        const name : string = props.name.split('/').pop() ?? '';
 
         const data = `import type {Component} from 'solid-js';
 

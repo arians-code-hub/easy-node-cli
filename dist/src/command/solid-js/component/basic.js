@@ -6,7 +6,7 @@ class basic extends Command_1.Command {
     index() { console.log('index from basic!.'); }
     tsx(props) {
         var _a, _b;
-        let name = (_a = props.name.split('/').pop()) !== null && _a !== void 0 ? _a : '';
+        const name = (_a = props.name.split('/').pop()) !== null && _a !== void 0 ? _a : '';
         const data = `import type {Component} from 'solid-js';
 
 export type C${name} = {
