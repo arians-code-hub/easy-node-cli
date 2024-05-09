@@ -8,6 +8,6 @@ function moduleBasePath() {
 exports.moduleBasePath = moduleBasePath;
 function basePath() {
     var _a;
-    return (_a = moduleBasePath()) !== null && _a !== void 0 ? _a : './';
+    return (_a = moduleBasePath()) !== null && _a !== void 0 ? _a : './../../';
 }
 exports.basePath = basePath;
