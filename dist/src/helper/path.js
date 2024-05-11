@@ -8,6 +8,6 @@ function moduleBasePath() {
 exports.moduleBasePath = moduleBasePath;
 function basePath() {
     const module = moduleBasePath();
-    return !!module ? module + './../../' : './';
+    return !!module ? module + '/../../' : './';
 }
 exports.basePath = basePath;

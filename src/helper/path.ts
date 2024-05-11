@@ -3,5 +3,5 @@ export function moduleBasePath() : string|undefined{
 }
 export function basePath() : string{
     const module = moduleBasePath();
-    return !!module ? module+'./../../' : './';
+    return !!module ? module+'/../../' : './';
 }
