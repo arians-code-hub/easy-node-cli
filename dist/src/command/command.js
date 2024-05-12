@@ -49,6 +49,7 @@ class command extends Command_1.Command {
         //
         // execSync(`cd ${basePath()} && npx tsx ${File.dirName({path: props.name})}`);
         const tsCode = File_1.File.read({ path: (0, path_1.basePath)(props.name) + '.ts' });
+        console.log('$$', (0, path_1.basePath)('tsconfig.json'));
         // @ts-ignore
         const jsCode = ts.transpile(tsCode, File_1.File.readJson((0, path_1.basePath)('tsconfig.json')));
         const runnable = eval(jsCode);
