@@ -8,7 +8,7 @@ class run extends Command_1.Command {
     index(props) {
         if (props['@build'])
             (0, node_child_process_1.execSync)(`cd ${props['@path']} && npm run build`);
-        (0, node_child_process_1.execSync)(`node ${props["@path"]}/dist/index.js ${(0, args_1.argsToStr)((0, Object_1.gatherExcept)(props, ['@build', '@path']))}`);
+        (0, node_child_process_1.execSync)(`node ${props["@path"]}/dist/index.js ${props["@command"]} ${(0, args_1.argsToStr)((0, Object_1.gatherExcept)(props, ['@build', '@path', '@command']))}`);
     }
 }
 exports.default = run;
