@@ -30,7 +30,7 @@ export default class command extends Command {
         const tsCode = File.read({path:basePath(props.name)+'.ts'});
        console.log('$$',basePath('tsconfig.json'));
         // @ts-ignore
-        const jsCode = ts.transpile(tsCode,File.readJson(basePath('tsconfig.json')));
+        const jsCode = ts.transpile(tsCode,File.readJson(basePath('tsconfig.json'))['compilerOptions']);
         const runnable = eval(jsCode);
         console.log(runnable);
     }
