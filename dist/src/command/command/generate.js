@@ -31,7 +31,8 @@ class generate extends Command_1.Command {
             "homepage": "https://github.com/arians-code-hub/easy-node-cli#readme",
             "devDependencies": {
                 "@types/node": "^20.12.10",
-                "typescript": "^5.4.5"
+                "typescript": "^5.4.5",
+                "easy-node-cli": "github:arians-code-hub/easy-node-cli"
             }
         };
         const tsConfig = {
