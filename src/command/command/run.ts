@@ -14,7 +14,7 @@ export default class run extends Command {
 
         if (props['!build']){
             // execSync(`cd ${props['!path']} `);
-            execSync(`npm run build --prefix=${props['!path']}`);
+            execSync(`npm --prefix=${props['!path']} run build `);
         }
 
         execSync(`node ${props["!path"]}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
