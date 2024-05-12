@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2020",
     "outDir": "./dist",
-    "module": "commonjs",
+    "module": "CommonJS",
     /* Specify what module code is generated. */
 
     "esModuleInterop": true,
@@ -17,8 +17,9 @@
     "skipLibCheck": true
   },
   "include": [
-    "./**/*.ts",
-    "./*.ts"
-  ]
+    "./src/**/*.ts",
+    "./src/*.ts"
+  ],
+  "exclude": ["node_modules"]
   /* Skip type checking all .d.ts files. */
 }
