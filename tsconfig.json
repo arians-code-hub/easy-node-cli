@@ -18,9 +18,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "index.ts",
-    "./src/**/*.ts",
-    "./src/*.ts"
+    "./**/*.ts",
+    "./*.ts"
   ],
   "exclude": ["node_modules"]
   /* Skip type checking all .d.ts files. */
