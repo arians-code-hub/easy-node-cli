@@ -51,7 +51,7 @@ class generate extends Command_1.Command {
             data: tsConfig
         });
         File_1.File.create({
-            path: props.path + '/command/src/hello.ts',
+            path: props.path + '/src/hello.ts',
             data: `import {Command} from "easy-node-cli/dist/class/Command";
 import {basePath} from "easy-node-cli/dist/helper/path";
 
@@ -63,7 +63,7 @@ export default class hello extends Command{
 }`
         });
         File_1.File.create({
-            path: props.path + '/command/src/args.ts',
+            path: props.path + '/src/args.ts',
             data: `import process from "process";
 
 const isNumeric = (str: any) => typeof str !== "string" ? false : !isNaN(Number(str));
@@ -134,7 +134,7 @@ export const args = allArgs.length > 1 ? convertArgs(allArgs.slice(1)) : {};
 `
         });
         File_1.File.create({
-            path: props.path + '/command/src/runCommand.ts',
+            path: props.path + '/src/runCommand.ts',
             data: `import * as args from "./args";
 
 export function run(command: string, method:any, args: any): any {
@@ -155,7 +155,7 @@ export function runCli() {
 `
         });
         File_1.File.create({
-            path: props.path + '/command/src/command/hello.ts',
+            path: props.path + '/src/command/hello.ts',
             data: `import {Command} from "easy-node-cli/dist/class/Command";
 import {basePath} from "easy-node-cli/dist/helper/path";
 
