@@ -40,11 +40,6 @@ export default class generate extends Command {
             ]
         };
 
-        Directory.create({
-            path:props.path+'/command',
-            check : true
-        });
-
         File.writeJson({
             path:props.path+'/package.json',
             data:packageJson
@@ -57,8 +52,8 @@ export default class generate extends Command {
 
         File.create({
             path:props.path+'/src/hello.ts',
-            data : `import {Command} from "easy-node-cli/dist/class/Command";
-import {basePath} from "easy-node-cli/dist/helper/path";
+            data : `import {Command} from "easy-node-cli/dist/src/class/Command";
+import {basePath} from "easy-node-cli/dist/src/helper/path";
 
 export default class hello extends Command{
    index(args : any): any {
@@ -164,8 +159,8 @@ export function runCli() {
 
         File.create({
             path:props.path+'/src/command/hello.ts',
-            data : `import {Command} from "easy-node-cli/dist/class/Command";
-import {basePath} from "easy-node-cli/dist/helper/path";
+            data : `import {Command} from "easy-node-cli/dist/src/class/Command";
+import {basePath} from "easy-node-cli/dist/src/helper/path";
 
 export default class hello extends Command{
    index(args : any): any {
