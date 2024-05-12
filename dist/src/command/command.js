@@ -51,7 +51,7 @@ class command extends Command_1.Command {
         const tsCode = File_1.File.read({ path: (0, path_1.basePath)(props.name) + '.ts' });
         console.log('$$', (0, path_1.basePath)('tsconfig.json'));
         // @ts-ignore
-        const jsCode = ts.transpile(tsCode, Object.assign(Object.assign({}, File_1.File.readJson({ path: (0, path_1.basePath)('tsconfig.json') })['compilerOptions']), { type: "module" }));
+        const jsCode = ts.transpile(tsCode, File_1.File.readJson({ path: (0, path_1.basePath)('tsconfig.json') })['compilerOptions']);
         const runnable = eval(jsCode);
         console.log(runnable);
     }
