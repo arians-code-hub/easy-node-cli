@@ -10,6 +10,7 @@ export default class run extends Command {
         "@build"?: boolean,
         "@command"?: string,
     }): any {
+        console.log('props',props);
 
         if (props['@build'])
             execSync(`cd ${props['@path']} && npm run build`);
