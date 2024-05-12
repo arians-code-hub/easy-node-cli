@@ -3,6 +3,7 @@ import {Directory, File} from "../../lib/File";
 import {execSync} from "node:child_process";
 import {gatherExcept} from "../../lib/Object";
 import {argsToStr} from "../../helper/args";
+import {basePath} from "../../helper/path";
 
 export default class run extends Command {
     index(props: {
@@ -17,9 +18,7 @@ export default class run extends Command {
             execSync(`npm run build`);
         }
 
-        execSync(`cd ${current} `);
-
-        execSync(`cd ${current} && node ${props["!path"]}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
+        execSync(`cd ${basePath()} && node ${props["!path"]}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
 
     }
 }
