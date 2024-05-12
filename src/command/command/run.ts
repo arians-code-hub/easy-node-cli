@@ -14,6 +14,7 @@ export default class run extends Command {
 
         if (props['!build']){
             execSync(`cd ${props['!path']} `);
+            
             execSync(`npm run build`);
         }
 
