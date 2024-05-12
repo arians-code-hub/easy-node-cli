@@ -27,9 +27,9 @@ export default class command extends Command {
         // console.log('exec', `cd ${basePath()} && npx tsx ${File.dirName({path: props.name})}`);
         //
         // execSync(`cd ${basePath()} && npx tsx ${File.dirName({path: props.name})}`);
+        console.log('basepath' ,basePath(props.name));
 
         const tsCode = File.read({path:basePath(props.name)});
-        console.log('basepath' ,basePath(props.name));
         const jsCode = ts.transpile(tsCode);
         const runnable = eval(jsCode);
         console.log(runnable);
