@@ -44,6 +44,9 @@ export class File {
     static readJson(props: { path: string }): object {
         return JSON.parse(fs.readFileSync(props.path).toString());
     }
+    static read(props: { path: string }): string {
+        return fs.readFileSync(props.path).toString();
+    }
 
     static writeJson(props: { path: string, data: any }): any {
         return File.create({path: props.path, data: JSON.stringify(props.data)});

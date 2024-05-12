@@ -56,6 +56,9 @@ class File {
     static readJson(props) {
         return JSON.parse(fs.readFileSync(props.path).toString());
     }
+    static read(props) {
+        return fs.readFileSync(props.path).toString();
+    }
     static writeJson(props) {
         return File.create({ path: props.path, data: JSON.stringify(props.data) });
     }
