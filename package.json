@@ -9,7 +9,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "push" : "npm run build && git add -A && git commit -m \"msg\" && git push"
   },
-  "type": "module",
   "files": ["/dist"],
   "bin": {
     "easy-node-cli": "bin.js"
