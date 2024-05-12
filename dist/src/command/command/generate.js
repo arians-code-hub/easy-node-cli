@@ -6,54 +6,37 @@ const node_child_process_1 = require("node:child_process");
 class generate extends Command_1.Command {
     index(props) {
         const packageJson = {
-            "name": "easy-node-cli",
+            "name": "command",
             "version": "1.0.0",
             "description": "",
             "main": "dist/index.js",
             "types": "dist/index.d.ts",
             "scripts": {
                 "build": "tsc",
-                "test": "echo \"Error: no test specified\" && exit 1",
-                "push": "npm run build && git add -A && git commit -m \"msg\" && git push"
-            },
-            "bin": {
-                "easy-node-cli": "bin.js"
-            },
-            "repository": {
-                "type": "git",
-                "url": "git+https://github.com/arians-code-hub/easy-node-cli.git"
+                "test": "echo \"Error: no test specified\" && exit 1"
             },
             "author": "",
             "license": "ISC",
-            "bugs": {
-                "url": "https://github.com/arians-code-hub/easy-node-cli/issues"
-            },
-            "homepage": "https://github.com/arians-code-hub/easy-node-cli#readme",
             "devDependencies": {
                 "@types/node": "^20.12.10",
-                "typescript": "^5.4.5",
-                "easy-node-cli": "github:arians-code-hub/easy-node-cli"
+                "easy-node-cli": "github:arians-code-hub/easy-node-cli",
+                "typescript": "^5.4.5"
             }
         };
         const tsConfig = {
             "compilerOptions": {
-                "target": "es2016",
+                "target": "es2019",
                 "outDir": "./dist",
-                "module": "commonjs",
-                /* Specify what module code is generated. */
+                "module": "CommonJS",
                 "esModuleInterop": true,
-                /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
                 "forceConsistentCasingInFileNames": true,
-                /* Ensure that casing is correct in imports. */
                 "strict": true,
-                /* Enable all strict type-checking options. */
                 "skipLibCheck": true
             },
             "include": [
                 "./**/*.ts",
                 "./*.ts"
             ]
-            /* Skip type checking all .d.ts files. */
         };
         File_1.Directory.create({
             path: props.path + '/command',
@@ -68,9 +51,113 @@ class generate extends Command_1.Command {
             data: tsConfig
         });
         File_1.File.create({
-            path: props.path + '/command/hello.ts',
-            data: `import {Command} from "easy-node-cli/src/class/Command";
-import {basePath} from "easy-node-cli/src/helper/path";
+            path: props.path + '/command/src/hello.ts',
+            data: `import {Command} from "easy-node-cli/dist/class/Command";
+import {basePath} from "easy-node-cli/dist/helper/path";
+
+export default class hello extends Command{
+   index(args : any): any {
+       console.log('index of hello! ',args);
+       console.log('base',basePath());
+   }
+}`
+        });
+        File_1.File.create({
+            path: props.path + '/command/src/args.ts',
+            data: `import process from "process";
+
+const isNumeric = (str: any) => typeof str !== "string" ? false : !isNaN(Number(str));
+
+export function convertArgs(args: string[]) {
+    const data: { [key: string]: string | boolean | number | ((boolean | number | string)[]) } = {};
+    for (let arg of args) {
+        if (!(!!arg))
+            continue;
+        const index = arg.indexOf(':');
+
+        let _val: any;
+        let _key: any = arg;
+
+        if (index == -1)
+            _val = true;
+        else if (index === arg.length - 1) {
+            _val = false;
+            _key = arg.substring(0, index);
+        } else {
+            _key = arg.substring(0, index);
+            const tmp = arg.substring(index + 1);
+            _val = isNumeric(tmp) ? Number(tmp) : tmp;
+        }
+        if (_key in data) {
+            if (Array.isArray(data[_key])) { // @ts-ignore
+                data[_key].push(_val);
+            } else
+                data[_key] = [data[_key], _val];
+        } else data[_key] = _val;
+    }
+    return data;
+}
+
+export function argsToStr(args : {[key : string] : string | boolean | number | ((boolean | number | string)[])}) : string{
+    let s = '';
+    for(let key in args){
+        const val = args[key];
+        if(val === true)
+            s+=\` \${key} \`;
+        else if(val === false)
+            s+=\` \${key}: \`;
+        else if(typeof val === 'string' || typeof val === 'number')
+            s+=\` "\${key}:\${val}"; \`
+        else{
+            for(let item of val)
+                if(item === true)
+                    s+=\` \${key} \`;
+                else if(item === false)
+                    s+=\` \${key}: \`;
+                else if(typeof item === 'string' || typeof item === 'number')
+                    s+=\` "\${key}:\${item}"; \`
+        }
+    }
+    return s;
+}
+
+const allArgs = process.argv.slice(2);
+
+let _command = allArgs.length ? convertArgs([allArgs[0]]) : undefined;
+
+export const command = _command ? Object.keys(_command)[0] : undefined;
+export const commandMethod = _command ? Object.values(_command)[0] : undefined;
+
+export const args = allArgs.length > 1 ? convertArgs(allArgs.slice(1)) : {};
+
+
+`
+        });
+        File_1.File.create({
+            path: props.path + '/command/src/runCommand.ts',
+            data: `import * as args from "./args";
+
+export function run(command: string, method:any, args: any): any {
+    const cls = require('./command/' + command).default;
+    const obj = new cls;
+    const m = typeof method === 'string' && !!method ? method : 'index';
+    return obj[m](args);
+}
+
+export function runCli() {
+    if (!(!!args.command)) {
+        console.log('Empty');
+        return undefined;
+    }
+    return run(args.command, args.commandMethod, args.args);
+}
+
+`
+        });
+        File_1.File.create({
+            path: props.path + '/command/src/command/hello.ts',
+            data: `import {Command} from "easy-node-cli/dist/class/Command";
+import {basePath} from "easy-node-cli/dist/helper/path";
 
 export default class hello extends Command{
    index(args : any): any {
@@ -81,14 +168,10 @@ export default class hello extends Command{
         });
         File_1.File.create({
             path: props.path + '/index.ts',
-            data: `import {runCli} from "easy-node-cli/src/helper/runCommand";
+            data: `import {runCli} from "./src/runCommand";
+
 console.log('< return >');
 console.log(runCli());`
-        });
-        File_1.File.create({
-            path: props.path + '/bin.js',
-            data: `#!/usr/bin/env node
-require('./dist/index');`
         });
         (0, node_child_process_1.execSync)(`cd ${props.path} && npm i`);
     }
