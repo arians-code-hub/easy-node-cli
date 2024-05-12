@@ -13,11 +13,10 @@ export default class run extends Command {
         const current = execSync(`pwd`).toString();
 
         if (props['!build']){
-            execSync(`cd ${props['!path']} `);
-            execSync(`npm run build`);
+            // execSync(`cd ${props['!path']} `);
+            execSync(`npm run build --prefix=${props['!path']}`);
         }
 
-        execSync(`cd ${current} `);
         execSync(`node ${props["!path"]}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
 
     }
