@@ -1,28 +1,29 @@
 import {Command} from "../../class/Command";
-import {Directory,File} from "../../lib/File";
+import {Directory, File} from "../../lib/File";
 import {execSync} from "node:child_process";
+
 export default class generate extends Command {
     index(props: {
         path: string
     }): any {
         const packageJson = {
-                "name": "command",
-                "version": "1.0.0",
-                "description": "",
-                "main": "dist/index.js",
-                "types": "dist/index.d.ts",
-                "scripts": {
-                    "build": "tsc",
-                    "test": "echo \"Error: no test specified\" && exit 1"
-                },
-                "author": "",
-                "license": "ISC",
-                "devDependencies": {
-                    "@types/node": "^20.12.10",
-                    "easy-node-cli": "github:arians-code-hub/easy-node-cli",
-                    "typescript": "^5.4.5"
-                }
-            };
+            "name": "command",
+            "version": "1.0.0",
+            "description": "",
+            "main": "dist/index.js",
+            "types": "dist/index.d.ts",
+            "scripts": {
+                "build": "tsc",
+                "test": "echo \"Error: no test specified\" && exit 1"
+            },
+            "author": "",
+            "license": "ISC",
+            "devDependencies": {
+                "@types/node": "^20.12.10",
+                "easy-node-cli": "github:arians-code-hub/easy-node-cli",
+                "typescript": "^5.4.5"
+            }
+        };
 
         const tsConfig = {
             "compilerOptions": {
@@ -41,18 +42,18 @@ export default class generate extends Command {
         };
 
         File.writeJson({
-            path:props.path+'/package.json',
-            data:packageJson
+            path: props.path + '/package.json',
+            data: packageJson
         });
 
         File.writeJson({
-            path:props.path+'/tsconfig.json',
-            data:tsConfig
+            path: props.path + '/tsconfig.json',
+            data: tsConfig
         });
 
         File.create({
-            path:props.path+'/src/hello.ts',
-            data : `import {Command} from "easy-node-cli/dist/src/class/Command";
+            path: props.path + '/src/hello.ts',
+            data: `import {Command} from "easy-node-cli/dist/src/class/Command";
 import {basePath} from "easy-node-cli/dist/src/helper/path";
 
 export default class hello extends Command{
@@ -64,8 +65,8 @@ export default class hello extends Command{
         })
 
         File.create({
-            path:props.path+'/src/args.ts',
-            data : `import process from "process";
+            path: props.path + '/src/args.ts',
+            data: `import process from "process";
 
 const isNumeric = (str: any) => typeof str !== "string" ? false : !isNaN(Number(str));
 
@@ -136,8 +137,8 @@ export const args = allArgs.length > 1 ? convertArgs(allArgs.slice(1)) : {};
         })
 
         File.create({
-            path:props.path+'/src/runCommand.ts',
-            data : `import * as args from "./args";
+            path: props.path + '/src/runCommand.ts',
+            data: `import * as args from "./args";
 
 export function run(command: string, method:any, args: any): any {
     const cls = require('./command/' + command).default;
@@ -158,8 +159,8 @@ export function runCli() {
         })
 
         File.create({
-            path:props.path+'/src/command/hello.ts',
-            data : `import {Command} from "easy-node-cli/dist/src/class/Command";
+            path: props.path + '/src/command/hello.ts',
+            data: `import {Command} from "easy-node-cli/dist/src/class/Command";
 import {basePath} from "easy-node-cli/dist/src/helper/path";
 
 export default class hello extends Command{
@@ -171,8 +172,8 @@ export default class hello extends Command{
         })
 
         File.create({
-            path:props.path+'/index.ts',
-            data : `import {runCli} from "./src/runCommand";
+            path: props.path + '/index.ts',
+            data: `import {runCli} from "./src/runCommand";
 
 console.log('< return >');
 console.log(runCli());`

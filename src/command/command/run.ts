@@ -18,8 +18,10 @@ export default class run extends Command {
             console.log('built...',built.toString());
             console.log('-------------------');
         }
-
-        execSync(`cd ${basePath()} && node ${props["!path"]}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
+        console.log('running...',);
+        const runned = execSync(`cd ${basePath()} && node ${props["!path"]}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
+        console.log(runned.toString());
+        console.log('-------------------');
 
     }
 }

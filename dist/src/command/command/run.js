@@ -14,7 +14,10 @@ class run extends Command_1.Command {
             console.log('built...', built.toString());
             console.log('-------------------');
         }
-        (0, node_child_process_1.execSync)(`cd ${(0, path_1.basePath)()} && node ${props["!path"]}/dist/index.js ${props["!command"]} ${(0, args_1.argsToStr)((0, Object_1.gatherExcept)(props, ['!build', '!path', '!command']))}`);
+        console.log('running...');
+        const runned = (0, node_child_process_1.execSync)(`cd ${(0, path_1.basePath)()} && node ${props["!path"]}/dist/index.js ${props["!command"]} ${(0, args_1.argsToStr)((0, Object_1.gatherExcept)(props, ['!build', '!path', '!command']))}`);
+        console.log(runned.toString());
+        console.log('-------------------');
     }
 }
 exports.default = run;
