@@ -68,8 +68,8 @@ class generate extends Command_1.Command {
         });
         File_1.File.create({
             path: props.path + '/command/hello.ts',
-            data: `import {Command} from "easy-node-cli/class/Command";
-import {basePath} from "easy-node-cli/helper/path";
+            data: `import {Command} from "easy-node-cli/src/class/Command";
+import {basePath} from "easy-node-cli/src/helper/path";
 
 export default class hello extends Command{
    index(args : any): any {
@@ -80,7 +80,7 @@ export default class hello extends Command{
         });
         File_1.File.create({
             path: props.path + '/index.ts',
-            data: `import {runCli} from "easy-node-cli/helper/runCommand";
+            data: `import {runCli} from "easy-node-cli/src/helper/runCommand";
 console.log('< return >');
 console.log(runCli());`
         });
