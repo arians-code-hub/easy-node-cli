@@ -24,6 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Command_1 = require("../class/Command");
+const path_1 = require("../helper/path");
 const File_1 = require("../lib/File");
 const ts = __importStar(require("typescript"));
 class command extends Command_1.Command {
@@ -47,7 +48,7 @@ class command extends Command_1.Command {
         // console.log('exec', `cd ${basePath()} && npx tsx ${File.dirName({path: props.name})}`);
         //
         // execSync(`cd ${basePath()} && npx tsx ${File.dirName({path: props.name})}`);
-        const tsCode = File_1.File.read({ path: props.name });
+        const tsCode = File_1.File.read({ path: (0, path_1.basePath)(props.name) });
         const jsCode = ts.transpile(tsCode);
         const runnable = eval(jsCode);
         console.log(runnable);
