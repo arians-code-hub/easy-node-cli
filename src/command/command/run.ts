@@ -6,16 +6,16 @@ import {argsToStr} from "../../helper/args";
 
 export default class run extends Command {
     index(props: {
-        "@path": string,
-        "@build"?: boolean,
-        "@command"?: string,
+        "!path": string,
+        "!build"?: boolean,
+        "!command"?: string,
     }): any {
         console.log('props',props);
 
-        if (props['@build'])
-            execSync(`cd ${props['@path']} && npm run build`);
+        if (props['!build'])
+            execSync(`cd ${props['!path']} && npm run build`);
 
-        execSync(`node ${props["@path"]}/dist/index.js ${props["@command"]} ${argsToStr(gatherExcept(props, ['@build', '@path','@command']))}`);
+        execSync(`node ${props["!path"]}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
 
     }
 }
