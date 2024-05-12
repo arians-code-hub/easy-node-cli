@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.args = exports.commandMethod = exports.command = void 0;
+exports.args = exports.commandMethod = exports.command = exports.argsToStr = exports.convertArgs = void 0;
 const process_1 = __importDefault(require("process"));
 const isNumeric = (str) => typeof str !== "string" ? false : !isNaN(Number(str));
 function convertArgs(args) {
@@ -37,6 +37,30 @@ function convertArgs(args) {
     }
     return data;
 }
+exports.convertArgs = convertArgs;
+function argsToStr(args) {
+    let s = '';
+    for (let key in args) {
+        const val = args[key];
+        if (val === true)
+            s += ` ${key} `;
+        else if (val === false)
+            s += ` ${key}: `;
+        else if (typeof val === 'string' || typeof val === 'number')
+            s += ` "${key}:${val}"; `;
+        else {
+            for (let item of val)
+                if (item === true)
+                    s += ` ${key} `;
+                else if (item === false)
+                    s += ` ${key}: `;
+                else if (typeof item === 'string' || typeof item === 'number')
+                    s += ` "${key}:${item}"; `;
+        }
+    }
+    return s;
+}
+exports.argsToStr = argsToStr;
 const allArgs = process_1.default.argv.slice(2);
 let _command = allArgs.length ? convertArgs([allArgs[0]]) : undefined;
 exports.command = _command ? Object.keys(_command)[0] : undefined;

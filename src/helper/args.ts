@@ -2,7 +2,7 @@ import process from "process";
 
 const isNumeric = (str: any) => typeof str !== "string" ? false : !isNaN(Number(str));
 
-function convertArgs(args: string[]) {
+export function convertArgs(args: string[]) {
     const data: { [key: string]: string | boolean | number | ((boolean | number | string)[]) } = {};
     for (let arg of args) {
         if (!(!!arg))
@@ -30,6 +30,29 @@ function convertArgs(args: string[]) {
         } else data[_key] = _val;
     }
     return data;
+}
+
+export function argsToStr(args : {[key : string] : string | boolean | number | ((boolean | number | string)[])}) : string{
+    let s = '';
+    for(let key in args){
+        const val = args[key];
+        if(val === true)
+            s+=` ${key} `;
+        else if(val === false)
+            s+=` ${key}: `;
+        else if(typeof val === 'string' || typeof val === 'number')
+            s+=` "${key}:${val}"; `
+        else{
+            for(let item of val)
+                if(item === true)
+                    s+=` ${key} `;
+                else if(item === false)
+                    s+=` ${key}: `;
+                else if(typeof item === 'string' || typeof item === 'number')
+                    s+=` "${key}:${item}"; `
+        }
+    }
+    return s;
 }
 
 const allArgs = process.argv.slice(2);
