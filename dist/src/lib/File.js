@@ -31,8 +31,7 @@ class Directory {
         return fs.existsSync(props.path);
     }
     static copy(props) {
-        var _a;
-        fs.cpSync(props.from, props.to, { recursive: true, force: (_a = props === null || props === void 0 ? void 0 : props.force) !== null && _a !== void 0 ? _a : true });
+        fs.cpSync(props.from, props.to, { recursive: true, force: props?.force ?? true });
     }
     static delete(props) {
         if (!Directory.exists({ path: props.path }))
@@ -40,15 +39,13 @@ class Directory {
         fs.rmSync(props.path, { recursive: true, force: true });
     }
     static create(props) {
-        var _a;
-        if ((props === null || props === void 0 ? void 0 : props.check) && Directory.exists({ path: props.path }))
+        if (props?.check && Directory.exists({ path: props.path }))
             throw new Error(`Directory ${props.path} exists`);
-        fs.mkdirSync(props.path, { recursive: (_a = props === null || props === void 0 ? void 0 : props.recursive) !== null && _a !== void 0 ? _a : true });
+        fs.mkdirSync(props.path, { recursive: props?.recursive ?? true });
     }
     static createIfNotExists(props) {
-        var _a;
         if (!Directory.exists({ path: props.path }))
-            Directory.create({ path: props.path, recursive: (_a = props.recursive) !== null && _a !== void 0 ? _a : true });
+            Directory.create({ path: props.path, recursive: props.recursive ?? true });
     }
 }
 exports.Directory = Directory;
@@ -72,11 +69,10 @@ class File {
         return fs.existsSync(props.path);
     }
     static create(props) {
-        var _a, _b;
-        if ((props === null || props === void 0 ? void 0 : props.check) && File.exists({ path: props.path }))
+        if (props?.check && File.exists({ path: props.path }))
             throw new Error(`File ${props.path} exists`);
-        ((_a = props === null || props === void 0 ? void 0 : props.createDir) !== null && _a !== void 0 ? _a : true) && Directory.createIfNotExists({ path: File.dirName({ path: props.path }) });
-        const text = typeof (props === null || props === void 0 ? void 0 : props.data) === 'object' ? JSON.stringify(props.data) : `${(_b = props === null || props === void 0 ? void 0 : props.data) !== null && _b !== void 0 ? _b : ''}`;
+        (props?.createDir ?? true) && Directory.createIfNotExists({ path: File.dirName({ path: props.path }) });
+        const text = typeof props?.data === 'object' ? JSON.stringify(props.data) : `${props?.data ?? ''}`;
         fs.writeFileSync(props.path, text);
     }
 }

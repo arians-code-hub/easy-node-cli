@@ -13,7 +13,7 @@ function ofStaticClass(cls, index) {
             }
         }
         // @ts-ignore
-        this['index'] = index !== null && index !== void 0 ? index : ((...args) => console.log(`index from ${cls.constructor.name}`, args));
+        this['index'] = index ?? ((...args) => console.log(`index from ${cls.constructor.name}`, args));
     }
     return obj;
 }
