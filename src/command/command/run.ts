@@ -12,6 +12,10 @@ export default class run extends Command {
     }): any {
         console.log('props',props);
 
+        const current = execSync(`pwd`).toString();
+        console.log('current',current);
+        process.exit(0);
+
         if (props['!build'])
             execSync(`cd ${props['!path']} && npm run build`);
 
