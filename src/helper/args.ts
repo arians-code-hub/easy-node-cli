@@ -41,7 +41,7 @@ export function argsToStr(args : {[key : string] : string | boolean | number | (
         else if(val === false)
             s+=` ${key}: `;
         else if(typeof val === 'string' || typeof val === 'number')
-            s+=` "${key}:${val}"; `
+            s+=` "${key}:${val}" `;
         else{
             for(let item of val)
                 if(item === true)
