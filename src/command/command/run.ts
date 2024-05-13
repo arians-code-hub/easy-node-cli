@@ -10,10 +10,12 @@ export default class run extends Command {
         "!build"?: boolean,
         "!command"?: string,
     }): any {
+        try{
+
         const current = execSync(`pwd`).toString();
         if (props['!build']){
             console.log('building..............')
-            const built = execSync(`cd ${props['!path'] ?? 'command'} && npm run build`);
+            const built = execSync(`cd ${props['!path'] ?? 'command'} && npm run build`,);
             console.log('built...',built.toString());
             console.log('-------------------');
         }
@@ -21,6 +23,9 @@ export default class run extends Command {
         const runned = execSync(`cd ${basePath()} && node ${props["!path"] ?? 'command'}/dist/index.js ${props["!command"]} ${argsToStr(gatherExcept(props, ['!build', '!path','!command']))}`);
         console.log(runned.toString());
         console.log('-------------------');
+        }catch (e){
+            console.log('e',e); 
+        }
 
     }
 }
