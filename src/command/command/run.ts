@@ -1,5 +1,4 @@
 import {Command} from "../../class/Command";
-import {Directory, File} from "../../lib/File";
 import {execSync} from "node:child_process";
 import {gatherExcept} from "../../lib/Object";
 import {argsToStr} from "../../helper/args";

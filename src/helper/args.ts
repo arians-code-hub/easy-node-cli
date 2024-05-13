@@ -49,7 +49,7 @@ export function argsToStr(args : {[key : string] : string | boolean | number | (
                 else if(item === false)
                     s+=` ${key}: `;
                 else if(typeof item === 'string' || typeof item === 'number')
-                    s+=` "${key}:${item}"; `
+                    s+=` "${key}:${item}" `;
         }
     }
     return s;
