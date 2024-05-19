@@ -24,7 +24,7 @@ export default class run extends Command {
         console.log(runned.toString());
         console.log('-------------------');
         }catch (e){
-            console.log('e',e); 
+            console.log('e',e);
         }
 
     }
