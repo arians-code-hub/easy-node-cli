@@ -52,19 +52,6 @@ export default class generate extends Command {
         });
 
         File.create({
-            path: props.path + '/src/hello.ts',
-            data: `import {Command} from "easy-node-cli/dist/src/class/Command";
-import {basePath} from "easy-node-cli/dist/src/helper/path";
-
-export default class hello extends Command{
-   index(args : any): any {
-       console.log('index of hello! ',args);
-       console.log('base',basePath());
-   }
-}`
-        })
-
-        File.create({
             path: props.path + '/src/args.ts',
             data: `import process from "process";
 
@@ -172,7 +159,7 @@ export default class hello extends Command{
         })
 
         File.create({
-            path: props.path + '/file.ts',
+            path: props.path + '/index.ts',
             data: `import {runCli} from "./src/runCommand";
 
 console.log('< return >');
