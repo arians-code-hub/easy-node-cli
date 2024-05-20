@@ -35,7 +35,7 @@ class Directory {
     }
     static copy(props) {
         var _a;
-        fs.cpSync(props.from, props.to, { recursive: true, force: (_a = props === null || props === void 0 ? void 0 : props.force) !== null && _a !== void 0 ? _a : true });
+        fs.cpSync(props.src, props.dst, { recursive: true, force: (_a = props === null || props === void 0 ? void 0 : props.force) !== null && _a !== void 0 ? _a : false });
     }
     static delete(props) {
         if (!Directory.exists({ path: props.path }))

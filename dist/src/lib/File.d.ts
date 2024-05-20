@@ -6,8 +6,8 @@ export declare class Directory {
         path: string;
     }): boolean;
     static copy(props: {
-        from: string;
-        to: string;
+        src: string;
+        dst: string;
         force?: boolean;
     }): void;
     static delete(props: {

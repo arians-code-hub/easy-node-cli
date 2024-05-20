@@ -11,11 +11,11 @@ export class Directory {
     }
 
     static copy(props: {
-        from: string,
-        to: string,
+        src: string,
+        dst: string,
         force?: boolean
     }) {
-        fs.cpSync(props.from, props.to, {recursive: true, force: props?.force ?? true});
+        fs.cpSync(props.src, props.dst, {recursive: true, force: props?.force ?? false});
     }
 
     static delete(props: { path: string }) {

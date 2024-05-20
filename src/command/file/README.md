@@ -58,7 +58,6 @@ Creates a file
 
 Parameter     | Required    | Default        | Description                                  |
 --------------|-------------|----------------|----------------------------------------------| 
-path          | ✅          |                |                                              |
 data          |             | empty string ""|                                              |
 createDir     |             | true           | creates the directories if they don't exists |
 
