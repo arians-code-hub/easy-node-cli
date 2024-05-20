@@ -1,7 +1,13 @@
 import * as args from "./args";
+import {Directory} from "../lib/File";
 
 export function run(command: string, method:any, args: any): any {
-    const cls = require('../command/' + command).default;
+    let path = '../command/' + command;
+
+    if(Directory.isDir({path}))
+        path+=`/${command}`;
+
+    const cls = require(path).default;
     const obj = new cls;
     const m = typeof method === 'string' && !!method ? method : 'index';
     return obj[m](args);

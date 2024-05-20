@@ -3,10 +3,10 @@ import {File} from "../../lib/File";
 
 export default class read extends Command {
     index(props: {
-        src: string,
+        path: string,
         key?: string | string[]
     }): any {
-        let obj: any = File.readJson({path: props.src});
+        let obj: any = File.readJson({path: props.path});
         if (props.key) {
             if (typeof props.key === 'string' && !!props.key)
                 obj = obj[props.key];

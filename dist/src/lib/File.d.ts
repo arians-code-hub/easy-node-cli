@@ -2,6 +2,9 @@ export declare class Directory {
     static exists(props: {
         path: string;
     }): boolean;
+    static isDir(props: {
+        path: string;
+    }): boolean;
     static copy(props: {
         from: string;
         to: string;
@@ -24,6 +27,9 @@ export declare class File {
     static readJson(props: {
         path: string;
     }): object;
+    static isFile(props: {
+        path: string;
+    }): boolean;
     static read(props: {
         path: string;
     }): string;
@@ -32,8 +38,8 @@ export declare class File {
         data: any;
     }): any;
     static copy(props: {
-        from: string;
-        to: string;
+        src: string;
+        dst: string;
     }): void;
     static dirName(props: {
         path: string;

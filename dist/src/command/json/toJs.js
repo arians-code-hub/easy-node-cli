@@ -10,7 +10,7 @@ class toJs extends Command_1.Command {
     index(props) {
         File_1.File.create({
             path: props.dst,
-            data: `exports.default = ${JSON.stringify((new read_1.default()).index(props))}`,
+            data: `exports.default = ${JSON.stringify((new read_1.default()).index({ path: props.src }))}`,
         });
     }
 }

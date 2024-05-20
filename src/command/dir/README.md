@@ -1,33 +1,53 @@
-# JSON
+# FILE
 
 [//]: # (**Introduction**)
 
-
-- [Read](#read)
-- [Read with specific keys](#read-with-specific-keys)
-- [Copy](#copy)
-- [Copy with specific keys](#copy-with-specific-keys)
-- [To JS](#to-js)
-- [To JS with specific keys](#to-js-with-specific-keys)
+- [File](#file)
+    - [Read](#read)
+    - [Read JSON](#read-json)
+    - [Write JSON](#write-json)
+    - [Is File](#is-file)
+    - [Copy](#copy)
+    - [Exists](#exists)
+    - [Create](#create)
+    - [Directory name of file](#directory-name-of-file)
+- [Directory](#directory)
+    - [Is Dir](#is-dir)
+    - [Copy](#copy)
+    - [Exists](#exists)
+    - [Delete](#delete)
+    - [Create](#create)
+    - [Create if not exists](#create-if-not-exists)
 ## Read
-Read a json file 
+Read a file 
 ````bash
-> easy-node-cli json/read path:package.json
+> easy-node-cli file:read path:package.json
 ````
 ----
-## Read with specific keys
-Read a json file with specific keys 
+## Read JSON
+Read a json file
 
 ````bash
-> easy-node-cli json/read path:package.json key:name key:version
+> easy-node-cli file:readJson src:package.json
 ````
-returns an object with name and version keys
+----
+## Write JSON
+Write a file
+````bash
+> easy-node-cli file:writeJson path:package.json "data:{key:\"value\"}"
+````
+----
+## Is File
+Check weather a given path exists and is a file
+````bash
+> easy-node-cli file:isFile path:package.json
+````
 
 ----
 ## Copy
-Copy a json file
+Copies source to destination
 ````bash
-> easy-node-cli json/copy src:package.json dst:../package.json
+> easy-node-cli file:copy src:package.json dst:../package.json
 ````
 ----
 ## Copy with specific keys

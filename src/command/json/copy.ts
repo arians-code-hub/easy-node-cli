@@ -10,7 +10,7 @@ export default class json extends Command {
     }) {
         File.create({
             path: props.dst,
-            data: JSON.stringify((new read()).index(props)),
+            data: JSON.stringify((new read()).index({path:props.src})),
         })
     }
 }

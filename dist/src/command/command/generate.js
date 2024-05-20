@@ -163,7 +163,7 @@ export default class hello extends Command{
 }`
         });
         File_1.File.create({
-            path: props.path + '/index.ts',
+            path: props.path + '/file.ts',
             data: `import {runCli} from "./src/runCommand";
 
 console.log('< return >');

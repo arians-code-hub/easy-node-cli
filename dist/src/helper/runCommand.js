@@ -25,8 +25,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runCli = exports.run = void 0;
 const args = __importStar(require("./args"));
+const File_1 = require("../lib/File");
 function run(command, method, args) {
-    const cls = require('../command/' + command).default;
+    let path = '../command/' + command;
+    if (File_1.Directory.isDir({ path }))
+        path += `/${command}`;
+    const cls = require(path).default;
     const obj = new cls;
     const m = typeof method === 'string' && !!method ? method : 'index';
     return obj[m](args);

@@ -30,6 +30,9 @@ class Directory {
     static exists(props) {
         return fs.existsSync(props.path);
     }
+    static isDir(props) {
+        return fs.existsSync(props.path) && fs.lstatSync(props.path).isDirectory();
+    }
     static copy(props) {
         var _a;
         fs.cpSync(props.from, props.to, { recursive: true, force: (_a = props === null || props === void 0 ? void 0 : props.force) !== null && _a !== void 0 ? _a : true });
@@ -56,14 +59,17 @@ class File {
     static readJson(props) {
         return JSON.parse(fs.readFileSync(props.path).toString());
     }
+    static isFile(props) {
+        return fs.existsSync(props.path) && fs.lstatSync(props.path).isFile();
+    }
     static read(props) {
         return fs.readFileSync(props.path).toString();
     }
     static writeJson(props) {
-        return File.create({ path: props.path, data: JSON.stringify(props.data) });
+        return File.create({ path: props.path, data: typeof props.data === 'string' ? props.data : JSON.stringify(props.data) });
     }
     static copy(props) {
-        fs.copyFileSync(props.from, props.to);
+        fs.copyFileSync(props.src, props.dst);
     }
     static dirName(props) {
         return _path.resolve(props.path, '..');
